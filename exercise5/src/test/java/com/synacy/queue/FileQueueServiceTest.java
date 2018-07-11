@@ -41,7 +41,7 @@ public class FileQueueServiceTest {
     /**
      * Test of push method, of class FileQueueService.
      */
-    @Test
+    @org.junit.Test
     public void testPush() {
         System.out.println("push");
         Message message = null;
@@ -54,7 +54,7 @@ public class FileQueueServiceTest {
     /**
      * Test of pop method, of class FileQueueService.
      */
-    @Test
+    @org.junit.Test
     public void testPop() {
         System.out.println("pop");
         FileQueueService instance = new FileQueueService();
@@ -68,7 +68,7 @@ public class FileQueueServiceTest {
     /**
      * Test of delete method, of class FileQueueService.
      */
-    @Test
+    @org.junit.Test
     public void testDelete() {
         System.out.println("delete");
         FileQueueService instance = new FileQueueService();
@@ -80,7 +80,7 @@ public class FileQueueServiceTest {
     /**
      * Test of messages method, of class FileQueueService.
      */
-    @Test
+    @org.junit.Test
     public void testMessages() {
         System.out.println("messages");
         FileQueueService instance = new FileQueueService();
@@ -94,7 +94,7 @@ public class FileQueueServiceTest {
     /**
      * Test of removeAllQueueMessages method, of class FileQueueService.
      */
-    @Test
+    @org.junit.Test
     public void testRemoveAllQueueMessages() {
         System.out.println("removeAllQueueMessages");
         FileQueueService instance = new FileQueueService();
