@@ -1,4 +1,5 @@
 package com.synacy.queue;
+import java.util.Queue;
 
 public interface QueueService {
 	
@@ -8,6 +9,13 @@ public interface QueueService {
 	// - push
 	// - pop
 	// - delete
+    public void push(Message message);
+    public String pop();
+    public void delete();
+    
+    public Queue<String> messages();
+    public void removeAllQueueMessages();
+            
 	
 	// Feel free to add any additional methods if you decide they're needed.
 
