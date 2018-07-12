@@ -19,6 +19,15 @@ import static org.junit.Assert.*;
  */
 public class MemoryQueueServiceTest {
     
+    public static void main(String[] args)
+    {
+        
+        testPush();
+        testPop();
+        testDelete();
+        
+    }
+    
     public MemoryQueueServiceTest() {
     }
     
@@ -42,7 +51,7 @@ public class MemoryQueueServiceTest {
      * Test of push method, of class MemoryQueueService.
      */
     @Test
-    public void testPush() {
+    public static void testPush() {
         System.out.println("push");
         Message message = null;
         MemoryQueueService instance = new MemoryQueueService();
@@ -55,7 +64,7 @@ public class MemoryQueueServiceTest {
      * Test of pop method, of class MemoryQueueService.
      */
     @Test
-    public void testPop() {
+    public static void testPop() {
         System.out.println("pop");
         MemoryQueueService instance = new MemoryQueueService();
         String expResult = "";
@@ -69,7 +78,7 @@ public class MemoryQueueServiceTest {
      * Test of delete method, of class MemoryQueueService.
      */
     @Test
-    public void testDelete() {
+    public static void testDelete() {
         System.out.println("delete");
         MemoryQueueService instance = new MemoryQueueService();
         instance.delete();
@@ -81,24 +90,12 @@ public class MemoryQueueServiceTest {
      * Test of messages method, of class MemoryQueueService.
      */
     @Test
-    public void testMessages() {
+    public static void testMessages() {
         System.out.println("messages");
         MemoryQueueService instance = new MemoryQueueService();
         Queue<String> expResult = null;
         Queue<String> result = instance.messages();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of removeAllQueueMessages method, of class MemoryQueueService.
-     */
-    @Test
-    public void testRemoveAllQueueMessages() {
-        System.out.println("removeAllQueueMessages");
-        MemoryQueueService instance = new MemoryQueueService();
-        instance.removeAllQueueMessages();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

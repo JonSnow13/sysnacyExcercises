@@ -19,6 +19,24 @@ import static org.junit.Assert.*;
  */
 public class FileQueueServiceTest {
     
+    public static void main(String[] args)
+    {
+        
+        for(int i = 0; i < 5; i++)
+        {
+            Message msg = new Message();
+            msg.messageBody = i + "A";
+            testPush(msg);
+        }
+        
+        testPop();
+        
+        testDelete();
+        
+        testMessages();
+        
+    }
+    
     public FileQueueServiceTest() {
     }
     
@@ -41,10 +59,10 @@ public class FileQueueServiceTest {
     /**
      * Test of push method, of class FileQueueService.
      */
-    @org.junit.Test
-    public void testPush() {
+    @Test
+    public static void testPush(Message msg) {
         System.out.println("push");
-        Message message = null;
+        Message message = msg;
         FileQueueService instance = new FileQueueService();
         instance.push(message);
         // TODO review the generated test code and remove the default call to fail.
@@ -54,8 +72,8 @@ public class FileQueueServiceTest {
     /**
      * Test of pop method, of class FileQueueService.
      */
-    @org.junit.Test
-    public void testPop() {
+    @Test
+    public static void testPop() {
         System.out.println("pop");
         FileQueueService instance = new FileQueueService();
         String expResult = "";
@@ -68,8 +86,8 @@ public class FileQueueServiceTest {
     /**
      * Test of delete method, of class FileQueueService.
      */
-    @org.junit.Test
-    public void testDelete() {
+    @Test
+    public static void testDelete() {
         System.out.println("delete");
         FileQueueService instance = new FileQueueService();
         instance.delete();
@@ -80,8 +98,8 @@ public class FileQueueServiceTest {
     /**
      * Test of messages method, of class FileQueueService.
      */
-    @org.junit.Test
-    public void testMessages() {
+    @Test
+    public static void testMessages() {
         System.out.println("messages");
         FileQueueService instance = new FileQueueService();
         Queue<String> expResult = null;
@@ -91,16 +109,5 @@ public class FileQueueServiceTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of removeAllQueueMessages method, of class FileQueueService.
-     */
-    @org.junit.Test
-    public void testRemoveAllQueueMessages() {
-        System.out.println("removeAllQueueMessages");
-        FileQueueService instance = new FileQueueService();
-        instance.removeAllQueueMessages();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }

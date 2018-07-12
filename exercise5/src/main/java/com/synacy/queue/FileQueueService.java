@@ -41,11 +41,6 @@ public class FileQueueService implements QueueService {
         return this.queue;
     }
     
-    public void removeAllQueueMessages()
-    {
-        queue.clear();
-    }
-    
     private static void producer(String data) throws InterruptedException
     {
         queue.put(data);

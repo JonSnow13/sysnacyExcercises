@@ -14,7 +14,6 @@ public interface QueueService {
     public void delete();
     
     public Queue<String> messages();
-    public void removeAllQueueMessages();
             
 	
 	// Feel free to add any additional methods if you decide they're needed.

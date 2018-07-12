@@ -9,7 +9,7 @@ public class MemoryQueueService implements QueueService {
 	
 	// Implement me second.
 //    private Queue<String> queue = new ConcurrentLinkedQueue<String>()
-    private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+    private final static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
     
     public void push(Message message)
     {
@@ -40,11 +40,6 @@ public class MemoryQueueService implements QueueService {
     public Queue<String> messages()
     {
         return this.queue;
-    }
-    
-    public void removeAllQueueMessages()
-    {
-        queue.clear();
     }
     
     private static void producer(String data) throws InterruptedException
