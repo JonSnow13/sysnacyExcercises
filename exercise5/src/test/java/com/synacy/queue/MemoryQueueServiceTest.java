@@ -22,9 +22,18 @@ public class MemoryQueueServiceTest {
     public static void main(String[] args)
     {
         
-        testPush();
+        for(int i = 0; i < 5; i++)
+        {
+            Message msg = new Message();
+            msg.messageBody = i + "A";
+            testPush(msg);
+        }
+        
         testPop();
+        
         testDelete();
+        
+        testMessages();
         
     }
     
@@ -51,9 +60,9 @@ public class MemoryQueueServiceTest {
      * Test of push method, of class MemoryQueueService.
      */
     @Test
-    public static void testPush() {
+    public static void testPush(Message data) {
         System.out.println("push");
-        Message message = null;
+        Message message = data;
         MemoryQueueService instance = new MemoryQueueService();
         instance.push(message);
         // TODO review the generated test code and remove the default call to fail.
@@ -67,7 +76,7 @@ public class MemoryQueueServiceTest {
     public static void testPop() {
         System.out.println("pop");
         MemoryQueueService instance = new MemoryQueueService();
-        String expResult = "";
+        String expResult = "0A";
         String result = instance.pop();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
@@ -94,6 +103,7 @@ public class MemoryQueueServiceTest {
         System.out.println("messages");
         MemoryQueueService instance = new MemoryQueueService();
         Queue<String> expResult = null;
+        
         Queue<String> result = instance.messages();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.

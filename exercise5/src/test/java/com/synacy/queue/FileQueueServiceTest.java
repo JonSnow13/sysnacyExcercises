@@ -31,8 +31,6 @@ public class FileQueueServiceTest {
         
         testPop();
         
-        testDelete();
-        
         testMessages();
         
     }
@@ -83,17 +81,6 @@ public class FileQueueServiceTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of delete method, of class FileQueueService.
-     */
-    @Test
-    public static void testDelete() {
-        System.out.println("delete");
-        FileQueueService instance = new FileQueueService();
-        instance.delete();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
 
     /**
      * Test of messages method, of class FileQueueService.

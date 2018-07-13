@@ -1,5 +1,6 @@
 package com.synacy.queue;
 
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.Queue;
 import java.util.logging.Level;
@@ -8,11 +9,16 @@ import java.util.logging.Logger;
 public class FileQueueService implements QueueService {
 	
 	// Implement me third.
+//    final CreateQueueRequest createQueueRequest = new CreateQueueRequest("MyQueue");
+//    final String myQueueUrl = sqs.createQueue(createQueueRequest).getQueueUrl();
     
     private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+    private static final List msgList = null;
+   
     
     public void push(Message message)
     {
+        msgList.add(message);
         try {
             producer(message.messageBody);
         } catch (InterruptedException ex) {
@@ -28,12 +34,11 @@ public class FileQueueService implements QueueService {
     
     public String pop()
     {
-        return this.queue.poll();
+        return this.queue.peek();
     }
     
     public void delete()
     {
-        this.queue.remove();
     }
     
     public Queue<String> messages()
