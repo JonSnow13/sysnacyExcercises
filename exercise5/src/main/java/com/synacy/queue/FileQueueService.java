@@ -12,29 +12,26 @@ public class FileQueueService implements QueueService {
 //    final CreateQueueRequest createQueueRequest = new CreateQueueRequest("MyQueue");
 //    final String myQueueUrl = sqs.createQueue(createQueueRequest).getQueueUrl();
     
-    private static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
-    private static final List msgList = null;
+    private final static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+    private final static BlockingQueue<String> producerQueue = new LinkedBlockingQueue<String>();
+    private final static BlockingQueue<String> consumerQueue = new LinkedBlockingQueue<String>();
+    private final static List msgList = null;
    
     
     public void push(Message message)
     {
-        msgList.add(message);
-        try {
-            producer(message.messageBody);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        try {
-            consumer();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        queue.add(message.messageBody);
+        msgList.add(queue); //the message is stored in msgList to secure the messages
     }
     
     public String pop()
     {
-        return this.queue.peek();
+        try {
+            producer(queue.peek());
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return consumerQueue.poll();
     }
     
     public void delete()
@@ -43,17 +40,23 @@ public class FileQueueService implements QueueService {
     
     public Queue<String> messages()
     {
-        return this.queue;
+        return queue;
     }
     
     private static void producer(String data) throws InterruptedException
     {
-        queue.put(data);
+        producerQueue.add(data); //producerQueue stores the data
+        try {
+            consumer(producerQueue.poll()); //consumerQueue gets the data from producerQueue
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
-    private static void consumer() throws InterruptedException
+    private static void consumer(String data) throws InterruptedException
     {
-       queue.take();
+       consumerQueue.add(data);
+       consumerQueue.take();
     }
 	
 }

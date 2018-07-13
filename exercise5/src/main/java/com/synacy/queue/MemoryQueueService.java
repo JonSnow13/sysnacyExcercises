@@ -10,26 +10,24 @@ public class MemoryQueueService implements QueueService {
 	// Implement me second.
 //    private Queue<String> queue = new ConcurrentLinkedQueue<String>()
     private final static BlockingQueue<String> queue = new LinkedBlockingQueue<String>();
+    private final static BlockingQueue<String> producerQueue = new LinkedBlockingQueue<String>();
+    private final static BlockingQueue<String> consumerQueue = new LinkedBlockingQueue<String>();
     
     public void push(Message message)
     {
-        try {
-            producer(message.messageBody);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        try {
-            consumer();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        queue.add(message.messageBody); //adds the message to queue
         
     }
     
     public String pop()
     {
-        return queue.poll();
+        try {
+            producer(queue.peek()); // the producerQueue gets the latest message from the queue
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return consumerQueue.peek(); //consumerQueue returns the message that recieved from producerQueue. 
     }
     
     public void delete()
@@ -39,17 +37,23 @@ public class MemoryQueueService implements QueueService {
     
     public Queue<String> messages()
     {
-        return this.queue;
+        return queue;
     }
     
     private static void producer(String data) throws InterruptedException
     {
-        queue.put(data);
+        producerQueue.add(data); //producerQueue stores the data
+        try {
+            consumer(producerQueue.poll()); //consumerQueue gets the data from producerQueue
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MemoryQueueService.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
-    private static void consumer() throws InterruptedException
+    private static void consumer(String data) throws InterruptedException
     {
-       queue.take();
+       consumerQueue.add(data); 
+       consumerQueue.take();
     }
     
     
